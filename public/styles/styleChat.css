@@ -1,0 +1,508 @@
+
+		.divButtonChat {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			background: #444444;
+			width: 38px;
+			height: 40px;
+			border-radius: 4px;
+			font-size: 22px;
+			cursor: pointer;
+			display: table;
+			box-shadow: 0px 0px 6px 0px #171717;
+
+			
+			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
+			transition: color .1s, background .1s, box-shadow .1s, transform .05s
+		}
+		
+		.divButtonChat:hover {
+			background: rgba(0, 0, 0, 0);
+			box-shadow: 0px 0px 0px 0px #171717;
+			transform: scale(1.2)
+		}
+		
+		.divButtonChat2 {
+			display: table-cell;
+			vertical-align: middle
+		}
+		
+		.divButtonChat2:hover {
+			color: dodgerblue
+		}
+		
+		.divButtonChat:active {
+			transform: scale(1.1);
+		}
+		
+		.divChat {
+			background: #222222;
+			border: none;
+			right: 10px;
+			bottom: 10px;
+			position: fixed;
+			width: 500px;
+			height: 480px;
+			display: none;
+			border-radius: 4px;
+			padding: 5px;
+			box-shadow: 1px 1px 10px #171717;
+			background: linear-gradient(#292929, #202020);
+		}
+		
+		.spanButtonCloseChat {
+			float: left;
+			background: #444444;
+			width: 26px;
+			height: 26px;
+			border-radius: 4px;
+			font-size: 14px;
+			cursor: pointer;
+			padding-top: 2px;
+			
+			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
+			transition: color .1s, background .1s, transform .05s
+		}
+		
+		.spanButtonCloseChat:hover {
+			background: rgba(0, 0, 0, 0);
+			transform: scale(1.4);
+			color: #FF4C4C
+		}
+		
+		.spanButtonCloseChat:active {
+			transform: scale(1.25);
+		}
+		
+		.spanDisplayName {
+			font-size: 17px;
+			font-weight: bold;
+			width: 405px;
+			height: 25px;
+			padding-top: 3px;
+			display: inline-block;
+		}
+		
+		span.displayName {
+			padding-left: 6px;
+			color: #60AFFE;
+			text-shadow: 1px 2px 4px #171717;
+		}
+		
+		span.displayName:hover {
+			cursor: pointer;
+		}
+		
+		.spanButtonSettings {
+			float: right;
+			background: #444444;
+			width: 26px;
+			height: 26px;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			padding-top: 2px;
+			
+			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
+			transition: color .1s, background .1s, transform .05s
+		}
+		
+		.spanButtonSettings:hover {
+			background: rgba(0, 0, 0, 0);
+			transform: scale(1.4);
+			//color: #FFA500
+		}
+		
+		.spanButtonSettings:active {
+			transform: scale(1.25)
+		}
+		
+		.spanButtonAddContact {
+			float: right;
+			background: #444444;
+			width: 26px;
+			height: 26px;
+			border-radius: 4px;
+			font-size: 16px;
+			cursor: pointer;
+			padding-top: 2px;
+			margin-right: 5px;
+			
+			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
+			transition: color .1s, background .1s, transform .05s
+		}
+		
+		.spanButtonAddContact:hover {
+			background: rgba(0, 0, 0, 0);
+			transform: scale(1.4);
+		}
+		
+		.spanButtonAddContact:active {
+			transform: scale(1.25)
+		}
+		
+		.divChatMessages {
+			position: absolute;
+			width: 300px;
+			max-height: 403px;
+			bottom: 32px;
+			overflow: auto;
+			overflow-x: hidden;
+			
+			-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d
+		}
+				
+		.scrollbarChat::-webkit-scrollbar {
+			width: 8px
+		}
+		
+		.scrollbarChat::-webkit-scrollbar-track {
+		    background: #313131; 
+		    -webkit-border-radius: 10px;
+		    border-radius: 3px
+		}
+		 
+		.scrollbarChat::-webkit-scrollbar-thumb {
+		    -webkit-border-radius: 10px;
+		    border-radius: 3px;
+		    background: #515151
+		}
+		
+		.divBubble {
+			cursor: pointer;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			max-width: 150px;
+			word-wrap: break-word; 
+			text-align: left;
+			color: #000000;
+			position: relative;
+			display: inline-block;
+			padding-left: 8px;
+			padding-right: 8px;
+			padding-bottom: 2px;
+			padding-top: 0px;
+			background: linear-gradient(#ffffff, #eeeeee, #a0a0a0);
+			box-shadow: 0px 0px 4px 0px #202020;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 7px;
+			border: #161616 solid 3px;
+			
+			transition: transform 0.05s
+		}
+		
+		.divBubble:active {
+			transform: scale(0.97);
+		}
+		 
+		.divBubble1stPerson {
+			float: left;
+			clear: right;
+			left: 5px;
+		}
+
+		.divBubble1stPerson:after {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 6px 7px 6px 0;
+			border-color: transparent #ffffff;
+			display: block;
+			width: 0;
+			z-index: 1;
+			left: -6px;
+			top: 5px;
+			transition: transform 0.05s
+		}
+		
+		.divBubble1stPerson:before {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 7px 8px 7px 0;
+			border-color: transparent #161616;
+			display: block;
+			width: 0;
+			z-index: 0;
+			left: -11px;
+			top: 4px;
+		}
+		
+		.divBubble1stPersonClicked {
+			float: left;
+			clear: right;
+			left: 5px;
+			border: #777777 solid 3px;
+		}
+		
+		.divBubble1stPersonClicked:before {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 7px 8px 7px 0;
+			border-color: transparent #777777;
+			display: block;
+			width: 0;
+			z-index: 0;
+			left: -11px;
+			top: 4px;
+		}
+		
+		.divBubble2ndPerson {
+			float: right;
+			clear: left;
+			right: 5px;
+		}
+
+		.divBubble2ndPerson:after {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 6px 0 6px 7px;
+			border-color: transparent #ffffff;
+			display: block;
+			width: 0;
+			z-index: 1;
+			right: -6px;
+			top: 5px
+		}
+		
+		.divBubble2ndPerson:before {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 7px 0px 7px 8px;
+			border-color: transparent #161616;
+			display: block;
+			width: 0;
+			z-index: 0;
+			right: -11px;
+			top: 4px;
+		}
+		
+		.divBubble2ndPersonClicked {
+			float: right;
+			clear: left;
+			right: 5px;
+			border: #777777 solid 3px;
+		}
+		
+		.divBubble2ndPersonClicked:before {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 7px 0px 7px 8px;
+			border-color: transparent #777777;
+			display: block;
+			width: 0;
+			z-index: 0;
+			right: -11px;
+			top: 4px;
+		}
+		
+		.divChatConsole {
+			text-align: left
+		}
+		
+		.ulChatMessages {
+			padding-left: 0;
+			list-style-type: none;
+			width: 100%
+		}
+		
+		.spanChatDisplayName1stPerson {
+			color: #60AFFE;
+			float: left;
+			clear: both;
+			padding-top: 9px;
+			padding-left: 5px;
+			padding-right: 5px
+		}
+		
+		span.spanChatDisplayName1stPerson:hover {
+			cursor: default;
+		}
+		
+		.spanChatDisplayName2ndPerson {
+			color: #FF4C4C;
+			color: #dddddd;
+			float: right;
+			clear: both;
+			padding-top: 9px;
+			padding-left: 5px;
+			padding-right: 10px;
+		}
+		
+		span.spanChatDisplayName2ndPerson:hover {
+			cursor: default;
+		}
+		
+		.aChat {
+			//color: #42647F;
+			font-weight: bold
+		}
+		
+		.aChat:visited {
+			//color: #42647F;
+		}
+		
+		.aChat:hover {
+			color: #539ad7;
+		}
+		
+		.inputChat {
+			position: absolute;
+			left: 10px;
+			margin-bottom: 7px;
+			bottom: 0px;
+			width: 300px;
+			border: 0px solid;
+			outline-width: 0;
+			background: transparent;
+			color: #ededed
+		}
+		
+		.divChatContacts {
+			width: 185px;
+			height: 278px;
+			right: 0px;
+			border-collapse: collapse;
+			margin-top: 10px;
+			position: absolute;
+			margin-right: 5px
+		}
+		
+		.tableChat {
+			width: 185px;
+			border: none;
+			text-align: left
+		}
+		
+		.tableChat tr {
+			border: none
+		}
+		
+		.tableChat thead th {
+			padding-bottom: 4px;
+			cursor: default;
+			
+			-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d
+		}
+		
+		.tableChat thead .thOnline {
+			padding-left: 65px;
+		}
+		
+		.tableChat tbody tr:hover .spanContactOption {
+			visibility: visible
+		}		
+				
+		.tableChat tbody tr:hover .tdOnline {
+			color: #ffffff
+		}
+		
+		.tdList {
+			padding-left: 5px;
+			padding-top: 2px;
+			padding-bottom: 2px;
+			
+			-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d
+		}
+		
+		.tdOnline {
+			color: #dddddd;
+			cursor: pointer
+		}	
+		
+		.tdUser {
+			color: #60AFFE;
+		}
+		
+		.tdUser:hover {
+			cursor: default;
+		}
+		
+		.tdContactOption {
+			text-align: right;
+			cursor: pointer
+		}
+		
+		.spanContactOption {
+			cursor: pointer;
+			visibility: hidden;
+			
+			-webkit-transition: color 0s, background 0s; /* For Safari 3.1 to 6.0 */
+			transition: color 0s, background 0s, transform 0s
+		}
+		
+		.spanContactOption:hover {
+			background: rgba(0, 0, 0, 0);
+			transform: scale(1.2)
+		}
+		
+		.spanContactOption:active {
+			transform: scale(1.25)
+		}
+		
+		.spanAddContact {
+			padding-bottom: 3px;
+			padding-right: 6px
+		}
+		
+		.spanAddContact:hover {
+			color: #66CD00
+		}
+		
+		.spanConverseContact {
+			color: #222222;
+		}
+		
+		.spanRemoveContact {
+			padding-bottom: 5px;
+			padding-right: 5px
+		}
+		
+		.spanRemoveContact:hover {
+			color: #FF4C4C
+		}
+
+		.divSettingsChat {
+			display: none;
+			width: 340px;
+			height: 220px;
+			background: #222222;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			margin: -110px 0 0 -170px;
+			border-radius: 4px;
+			box-shadow: 0px 0px 6px 0px #171717
+		}
+		
+		.input-group {
+			margin-left: 30px;
+			margin-bottom: 20px;
+			width: 240px
+		}
+		
+		.input-group-btn {
+			padding-left: 1px
+		}
+
+		.btn:disabled {
+			cursor: pointer
+		}
+		
+		.well {
+			word-break: break-all
+		}
+		
+		.hidden {
+			display: none;
+			visibility: hidden;
+		}

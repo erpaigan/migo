@@ -1,0 +1,5 @@
+    emailExistence = require('emailExistence');
+    
+    emailExistence.check('email@domain.com', function(err,res){
+        console.log('res: ' + res);
+    });

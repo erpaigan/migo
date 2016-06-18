@@ -1,0 +1,107 @@
+
+<div id="divChat" class="divChat left noSelect" ng-controller="controllerChat">
+	<div id="divChatBar" class="divChatBar">
+		<span id="spanButtonCloseChat" class="spanButtonCloseChat">
+			<span class="fa fa-chevron-down"></span>
+		</span>
+				
+		<span id="spanDisplayName" class="spanDisplayName">
+			<span class="fa fa-user-secret"></span><span id="displayName" class="displayName"><%= user.local.displayName %>
+			</span>
+		</span>
+		
+		<span id="spanButtonSettings" class="spanButtonSettings">
+			<span class="fa fa-wrench"></span>
+		</span>
+				
+		<span id="spanButtonAddContact" class="spanButtonAddContact">
+			<span class="fa fa-users"></span>
+		</span>
+	</div>
+			
+	<div class="divChatConsole">	
+		<div id="divChatMessages" class="divChatMessages scrollbarChat">
+			<ul id="messages" class="ulChatMessages"></ul>
+		</div>
+
+		<input id="inputChat" class="inputChat" autocomplete="off" spellcheck="false" maxlength="102"/>
+	</div>
+	
+	<div class="divChatContacts">
+		<table class="tableChat">
+			<thead>
+				<tr>
+					<th class="thOnline">Online</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="online in onlineList | orderBy: 'displayName'">
+					<td ng-attr-id="{{ online._id }}" class="tdList {{ getClass(online._id, 'display') }}" ng-bind="online.displayName"></td>
+					<td class="tdContactOption {{ getClass(online._id, 'td') }}">
+						<span class="fa fa-envelope {{ getClass(online._id, 'option') }}"></span>
+					</td>
+					<td class="tdContactOption {{ getClass(online._id, 'td') }}">
+						<span class="fa fa-user-plus spanAddContact {{ getClass(online._id, 'option') }}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+			
+	<!--<div class="divChatContacts">
+		<table class="tableChat">
+			<thead>
+				<tr>
+					<th>Contacts</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="contact in contactsList | orderBy: ['active', 'online', 'displayName']">
+					<td ng-attr-id="{{ contact._id }}" class="tdContact tdContactOffline" ng-bind="contact.displayName" ng-click="setChatReceiver(contact._id)"></td>
+					<td class="tdContactOption" ng-click="setChatReceiver(contact._id)">
+						<span class="fa fa fa-rss spanContactOption spanConverseContact"></span>
+					</td>
+					<td class="tdContactOption">
+						<span class="fa fa-times-circle spanContactOption spanRemoveContact" ng-click="removeContact(contact._id)"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>-->
+			
+	<div id="divSettingsChat" class="divSettingsChat">
+		<h4><span class="fa fa-wrench"></span> Chat Settings</h4> <!--<i class="fa fa-cog fa-spin" ng-hide="processing == false"></i>-->
+				
+		<h5>Type a new display name on the input below</h5>
+				
+		<form ng-submit="setDisplayName()">			
+					<div class="input-group">
+						<input id="inputSetDisplayName" class="form-control inputChatSettings" type="text" name="inputSetDisplayName" class="form-control" placeholder="Display Name" ng-model="user.displayName" maxlength="15" required>
+						
+						<span class="input-group-btn">
+							<button id="btnSaveChatSettings" type="submit" class="btn btn-primary btn-md" ng-disabled="processing == true">Apply</button>
+						</span>
+					</div>
+			
+			<button id="btnCancelChatSettings" type="button" class="btn btn-default btn-md">Close</button>
+		</form>
+	</div>
+	
+	<div id="divAddContactChat" class="divSettingsChat">
+		<h4><span class="fa fa-user-plus"></span> Add Contact</h4> <!--<i class="fa fa-cog fa-spin" ng-hide="processing == false"></i>-->
+				
+		<h5>Enter email of contact you wish to add</h5>
+				
+		<form ng-submit="addContact()">			
+					<div class="input-group">
+						<input id="inputAddContact" class="form-control inputChatSettings" type="text" name="inputAddContact" class="form-control" placeholder="Contact email" ng-model="contact.email" maxlength="30" required>
+						
+						<span class="input-group-btn">
+							<button id="btnSaveChatSettings" type="submit" class="btn btn-primary btn-md" ng-disabled="processing == true">Add</button>
+						</span>
+					</div>
+			
+			<button id="btnCancelAddContact" type="button" class="btn btn-default btn-md">Close</button>
+		</form>
+	</div>
+</div>

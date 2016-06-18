@@ -1,0 +1,80 @@
+
+     <div class="col-sm-6 hidden" ng-controller="controllerOversee">
+          <div class="well">
+			<h3> <i class="fa fa-eye"></i> Oversee </h3>
+				<ul class="nav nav-tabs">
+				  <li class="active"><a data-toggle="tab" href="#overview">Overview</a></li>
+				  <li><a data-toggle="tab" href="#invites">Invites</a></li>
+				  <li><a data-toggle="tab" href="#users">Users</a></li>
+				</ul>
+
+				<div class="tab-content">
+				  <div id="overview" class="tab-pane fade in active left">
+				    <h4>Overview</h4>
+				    
+				    <p>Mga detalye dire. Statistics etc.</p>
+				  </div>
+				  
+				  <div id="invites" class="tab-pane fade left">
+				    <h4>Invites</h4>
+				    
+				    <p>
+						<form ng-submit="sendInvite()">
+							<strong>Enter email: </strong>
+							<input class="fc-black" type="email" placeholder="Email" autocomplete="off" ng-model="invitation.email" required />
+							
+							<strong>Set favor: </strong>						
+							<select class="fc-black" ng-options="obj.text for obj in optionsFavor track by obj.value" ng-model="invitation.favor"></select>
+
+							<button type="submit" class="fc-black" ng-disabled="processing == true">Invite</button>
+							<i class="fa fa-cog fa-spin" ng-hide="processing == false"></i>
+						</form>
+						
+						<table class="table">
+							</thead>
+								<tr>
+									<th>Email</th>
+									<th>Favor</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							
+							</tbody>
+								<tr ng-repeat="invitation in invitationsList">
+									<td ng-bind="invitation.local.email"></td>
+									<td ng-bind="invitation.local.favor"></td>
+									<td><button class="btn btn-danger btn-xs" ng-click="removeInvite(invitation._id)">Remove</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+				  </div>
+				  
+				  <div id="users" class="tab-pane fade left">
+				    <h4>Users</h4>
+				    
+				    <p>					
+						<table class="table">
+							</thead>
+								<tr>
+									<th>Email</th>
+									<th>Favor</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+								
+							</tbody>
+								<tr ng-repeat="user in usersList">
+									<td ng-bind="user.local.email"></td>
+									<td ng-bind="user.local.favor"></td>
+									<td><button class="btn btn-danger btn-xs" ng-click="removeUser(user._id)">Remove</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+				  </div>
+				</div>
+					
+				<p ng-bind="message"></p>
+		</div>
+	</div>
