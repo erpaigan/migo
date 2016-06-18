@@ -10,7 +10,6 @@ var passport = require('passport');
 var flash = require('connect-flash');
 //var sendgrid = require('sendgrid')('migo', '!qazXsw2');
 
-//var nodemailer = require('nodemailer');
 var configGenerator = require('./config/generator.js');
 var generator = require('xoauth2').createXOAuth2Generator(configGenerator);
 
