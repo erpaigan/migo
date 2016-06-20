@@ -41,12 +41,12 @@ var transporter = nodemailer.createTransport(({
 
 // configuration ===============================================================
 mongoose.connect(configDB.url, function(err, db) {
-	console.log('Connecting to database: ' + process.env.MIGO_DB);
+	console.log('Connecting to database: ' + process.env.PROD_MONGODB);
 	
 	if(err) {
 		console.warn(err.message);
 	} else {
-		console.log('Connected to ' + process.env.MIGO_DB + ' with great success!\n\n' + 'Now serving, migo. =3' + '\n');
+		console.log('Connected to ' + process.env.PROD_MONGODB + ' with great success!\n\n' + 'Now serving, migo. =3' + '\n');
 	}
 }); // connect to our database
 

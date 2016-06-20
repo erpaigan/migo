@@ -1,4 +1,4 @@
 
 module.exports = {
-	'url' : process.env.MIGO_DB || 'mongodb://localhost/migodb'
+	'url' : process.env.PROD_MONGODB || 'mongodb://localhost/migodb'
 };
