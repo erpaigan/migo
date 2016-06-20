@@ -65,7 +65,8 @@ module.exports = function(passport) {
 					var newUser            = new User();
 						// set the user's local credentials
 					newUser.local.email    = email.toLowerCase();
-					newUser.local.password = newUser.generateHash(password);
+//					newUser.local.password = newUser.generateHash(password);
+					newUser.local.password = password;
 					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
 					newUser.local.displayName = 'Migo';
 					
