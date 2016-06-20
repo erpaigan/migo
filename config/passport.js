@@ -61,13 +61,15 @@ module.exports = function(passport) {
 				 if (err)
 					return done(err);
 				
-				 if(code && code.local.email === email) {
+//				 if(code && code.local.email === email) {
+
 					var newUser            = new User();
 						// set the user's local credentials
 					newUser.local.email    = email.toLowerCase();
 //					newUser.local.password = newUser.generateHash(password);
 					newUser.local.password = password;
-					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
+//					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
+					newUser.local.favor    = 'watcher';
 					newUser.local.displayName = 'Migo';
 					
 					// save the user
@@ -78,9 +80,9 @@ module.exports = function(passport) {
 							
 						return done(null, newUser);
 					});
-				 } else {					
+/*				 } else {					
 					return done(null, false, req.flash('joinMessage', 'wala mu.salir ang code or email')); 
-				 }
+				 }*/
 			  });	 
 		   });
         });
