@@ -46,7 +46,7 @@ module.exports = function(passport) {
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
 		 
-		   User.findOne({ 'local.email' :  email }, function(err, user) {
+		   User.findOne({ 'local.email' :  email.toLowerCase() }, function(err, user) {
 			  // if there are any errors, return the error
 			  if (err) 
 				 return done(err);
@@ -61,15 +61,12 @@ module.exports = function(passport) {
 				 if (err)
 					return done(err);
 				
-//				 if(code && code.local.email === email) {
-
+				 if(code && code.local.email === email.toLowerCase()) {
 					var newUser            = new User();
 						// set the user's local credentials
 					newUser.local.email    = email.toLowerCase();
-//					newUser.local.password = newUser.generateHash(password);
-					newUser.local.password = password;
-//					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
-					newUser.local.favor    = 'watcher';
+					newUser.local.password = newUser.generateHash(password);
+					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
 					newUser.local.displayName = 'Migo';
 					
 					// save the user
@@ -80,9 +77,9 @@ module.exports = function(passport) {
 							
 						return done(null, newUser);
 					});
-/*				 } else {					
+				 } else {					
 					return done(null, false, req.flash('joinMessage', 'wala mu.salir ang code or email')); 
-				 }*/
+				 }
 			  });	 
 		   });
         });
@@ -97,7 +94,7 @@ module.exports = function(passport) {
     function(req, email, password, done) { // callback with email and password from our form
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) { // email.toLowerCase()
+        User.findOne({ 'local.email' :  email.toLowerCase() }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err)
                 return done(err);
