@@ -1,9 +1,69 @@
 
+@keyframes shakeItOff {
+	0%, 50%, 100% { transform: translateX(3px); } 
+	25%, 75% { transform: translateX(-3px); } 
+}
+
+@-webkit-keyframes shakeItOff {
+	0%, 50%, 100% { transform: translateX(5px); } 
+	25%, 75% { transform: translateX(-5px); } 
+}
+
+@keyframes heartBeat {
+	1% { transform: scale(1.2); color: #ffa500; } 
+	23% { transform: scale(1); }
+	24% { transform: scale(1.3); }
+	50% { color: #ffa500; }
+	70% { transform: scale(1); }
+	100% { color: #ffffff; } 
+}
+
+@-webkit-keyframes heartBeat {
+	1% { transform: scale(1.3); color: #ffa500; } 
+	23% { transform: scale(1); }
+	24% { transform: scale(1.3); }
+	50% { color: #ffa500; }
+	70% { transform: scale(1); }
+	100% { color: #ffffff; } 
+}
+
+@keyframes wiggle {
+	2% { transform: rotate(20deg); }
+	4% { transform: rotate(-20deg); }
+	6% { transform: rotate(20deg); }
+	8% { transform: rotate(-20deg); }
+	10% { transform: rotate(0deg); }
+	
+}
+
+@-webkit-keyframes wiggle {
+	2% { transform: rotate(20deg); }
+	4% { transform: rotate(-20deg); }
+	6% { transform: rotate(20deg); }
+	8% { transform: rotate(-20deg); }
+	10% { transform: rotate(0deg); }
+}
+
+.shakeItOff {
+	-webkit-animation: shakeItOff .25s 1;
+	animation: shakeItOff .25s 1;
+}
+
+.heartBeat {
+	-webkit-animation: heartBeat 1.2s infinite;
+	animation: heartBeat 1.2s infinite;
+}
+
+.wiggle {
+	-webkit-animation: wiggle 5s infinite;
+	animation: wiggle 5s infinite;
+}
+
 		.divButtonChat {
 			position: fixed;
 			bottom: 10px;
 			right: 10px;
-			background: #444444;
+			background: #333333;
 			width: 38px;
 			height: 40px;
 			border-radius: 4px;
@@ -11,7 +71,6 @@
 			cursor: pointer;
 			display: table;
 			box-shadow: 0px 0px 6px 0px #171717;
-
 			
 			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
 			transition: color .1s, background .1s, box-shadow .1s, transform .05s
@@ -43,14 +102,14 @@
 			bottom: 10px;
 			position: fixed;
 			width: 500px;
-			height: 480px;
+			height: 500px;
 			display: none;
 			border-radius: 4px;
 			padding: 5px;
 			box-shadow: 1px 1px 10px #171717;
-			background: linear-gradient(#292929, #202020);
+			//background: linear-gradient(#292929, #202020);
 		}
-		
+
 		.spanButtonCloseChat {
 			float: left;
 			background: #444444;
@@ -142,10 +201,144 @@
 			transform: scale(1.25)
 		}
 		
+		.divReceiver {
+			position: absolute;
+			cursor: default;
+			margin-top: 3px;
+			padding-top: 7px;
+			width: 300px;
+			height: 33px;
+			font-weight: bold;
+			box-shadow: 1px 2px 2px #171717;
+			z-index: 2;
+			
+			-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d
+		}
+		
+		.receiverName {
+			padding-left: 6px;
+		}
+		
+		.spanShowChatList {
+			visibility: hidden;
+			cursor: pointer;
+			position: absolute;
+			padding-top: 4px;
+			right: 34px;
+		}
+		
+		.ulChatList {
+			visibility: hidden;
+			padding: 0px;
+			padding-top: 7px;
+			padding-bottom: 8px;
+			list-style-type: none;
+			margin: 0px;
+			position: absolute;
+			top: 35px;
+			right: 21px;
+			text-align: left;
+			width: 170px;
+			background: linear-gradient(#313131, #232323);
+			border-radius: 4px;
+			box-shadow: 1px 1px 5px #171717;
+		}
+		
+		.ulChatList:after {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 0 6px 7px;
+			border-color: #313131 transparent;
+			display: block;
+			width: 0;
+			z-index: 1;
+			top: -7px;
+			right: 11px;
+		}
+		
+		.liChatList {
+			padding-left: 12px;
+			padding-top: 2px;
+			padding-bottom: 2px;
+			color: #dddddd;
+			font-weight: normal;
+			cursor: pointer;
+		}
+		
+		.liChatList:hover {
+			color: #fff;
+		}
+		
+		.liChatList:hover .spanLiRemoveReceiver {
+			visibility: visible;
+		}
+		
+		.spanLiRemoveReceiver {
+			visibility: hidden;
+			padding-top: 3px;
+			position: absolute;
+			right: 10px;
+		}
+		
+		.spanLiRemoveReceiver:hover {
+			color: #ff4c4c;
+			transform: scale(1.25);
+		}
+		
+		.spanLiRemoveReceiver:active {
+			transform: scale(1.1);
+		}
+		
+		.spanShowChatList:hover {
+			transform: scale(1.25);
+		}
+		
+		.spanShowChatList:active {
+			transform: scale(1.1)
+		}
+		
+		.spanLiChatListEnvelope {
+			display: none;
+			padding-top: 4px;
+			position: absolute;
+			padding-left: 7px; 
+			font-size: 12px; 
+			color: #EDCB62; 
+		}
+		
+		.spanRemoveReceiver {
+			visibility: hidden;
+			position: absolute;
+			padding-top: 3px;
+			right: 11px;
+			font-size: 15px;
+		}
+		
+		.spanRemoveReceiver:hover {
+			color: #ff4c4c;
+			transform: scale(1.25);
+			cursor: pointer;
+		}
+		
+		.spanRemoveReceiver2 {
+			position: absolute;
+			padding-top: 3px;
+			right: 11px;
+			font-size: 15px;
+			color: #888888;
+			cursor: default;
+		}
+		
+		.spanRemoveReceiver:active {
+			transform: scale(1.1)
+		}
+		
 		.divChatMessages {
 			position: absolute;
 			width: 300px;
-			max-height: 403px;
+			max-height: 400px;
 			bottom: 32px;
 			overflow: auto;
 			overflow-x: hidden;
@@ -155,18 +348,18 @@
 		}
 				
 		.scrollbarChat::-webkit-scrollbar {
-			width: 8px
+			width: 9px;
 		}
 		
 		.scrollbarChat::-webkit-scrollbar-track {
 		    background: #313131; 
 		    -webkit-border-radius: 10px;
-		    border-radius: 3px
+		    border-radius: 0 0 4px 4px;
 		}
 		 
 		.scrollbarChat::-webkit-scrollbar-thumb {
 		    -webkit-border-radius: 10px;
-		    border-radius: 3px;
+		    border-radius: 0 0 4px 4px;
 		    background: #515151
 		}
 		

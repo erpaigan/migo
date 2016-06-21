@@ -1,4 +1,3 @@
-
 var User = require('../config/models/user');
 
 module.exports = function(app, io) {
@@ -212,18 +211,21 @@ module.exports = function(app, io) {
 			
 			io.sockets.connected[socket.id].emit('chat', chat);
 			
-			for (var i = 0; i < clients.length; i++) {
-				if (clients[i].socketId != socket.id) {
-					io.sockets.connected[clients[i].socketId].emit('chat', chat);
+			console.log(chat);
+			
+			if (chat.receiverId == 'all') {
+				for (var i = 0; i < clients.length; i++) {
+					if (clients[i].socketId != socket.id) {
+						io.sockets.connected[clients[i].socketId].emit('chat', chat);
+					}
+				}
+			} else {
+				for (var i = 0; i < clients.length; i++) {
+					if (clients[i]._id == chat.receiverId) {
+						io.sockets.connected[clients[i].socketId].emit('chat', chat);
+					}
 				}
 			}
-			
-			/*for (var i = 0; i < clients.length; i++) {
-				if (clients[i]._id == msg.receiverId) {
-					io.sockets.connected[clients[i].socketId].emit('chatMessage', msg);
-					io.sockets.connected[socket.id].emit('chatMessage', msg);
-				}
-			}*/
 		});
 		
 		socket.on('chatBubbleBlink', function(chatBubbleBlink){
@@ -272,7 +274,6 @@ module.exports = function(app, io) {
 					User.findOne({ '_id': clients[i]._id }, function(err, user) {
 						if (err)
 							throw err;
-
 						if (user) {
 							updateContacts(user.local.contactOf, 0, user._id, 'disconnect');
 						}

@@ -1,79 +1,80 @@
-
 <!doctype html>
 
 <html ng-app="migo">	
 	<% include partials/head.ejs %>
 	
 	<body>
-		<div class="container">
-			<div class="divNav row noSelect">
-				<nav>
-					<div class="divLogo">
-						<span class="spanLogoText">MIG</span><span class="fa fa-globe spanLogo"></span>
-					</div>
-					
-					<div class="divAnchors">
-						<ul class="ulNav">
-							<li class="liNav"><a class="aNav" href="#">Fun</a></li>
-							<li class="liNav"><a class="aNav" href="#">Projects</a></li>
-							<li class="liNav"><a class="aNav" href="#">Stuff</a></li>
-							<li class="liNav"><span class="fa fa-eye spanButton"></span></li>
-							<li class="liNav"><span id="spanButtonUser" class="fa fa-user spanButton"></span>
-								<ul class="ulNavChild">
-									<li class="liNavChild">Account</li>
-									<li class="liNavChild">More Stuff</li>
-									<li class="liNavChild">Stuff1</li>
-									<li class="liNavChild">Options</li>
-									<li id="liLogOut" class="liNavChild">Logout</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</nav>
+		<div class="main"> <!--tangtangun ni puhon. para ra ni sa oversee nga ma.blur ang background. ang buhatun, ang overlay(100% width ug height) ra sa oversee i.blur unya ang uban sulod sa overlay, i.balik ug 0 ang blur -->
+			<div class="container">
+				<div class="divNav row noSelect">
+					<nav>
+						<div class="divLogo">
+							<span class="spanLogoText">MIG</span><span class="fa fa-globe spanLogo"></span>
+						</div>
+						
+						<div class="divAnchors">
+							<ul class="ulNav">
+								<li class="liNav"><a class="aNav" href="#">Fun</a></li>
+								<li class="liNav"><a class="aNav" href="#">Projects</a></li>
+								<li class="liNav"><a id="liClickTest" class="aNav" href="#">Stuff</a></li>
+								<% if (user.local.favor === 'watcher') { %><li class="liNav"><span id="spanButtonOversee" class="fa fa-eye spanButton"></span></li><% } %>
+								<li class="liNav"><span id="spanButtonUser" class="fa fa-user spanButton"></span>
+									<ul class="ulNavChild">
+										<li class="liNavChild">Badge</li>
+										<li class="liNavChild">More Stuff</li>
+										<li class="liNavChild">Stuff1</li>
+										<li class="liNavChild">Options</li>
+										<li id="liLogOut" class="liNavChild">Logout</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
 			</div>
-		</div>
-		
-		<header>
-			<img class="bonfire" src="../res/images/bonfire.png" />
-		</header>
 			
-		<div class="container">
-			<div class="row hidden">
-				<div class="col-sm-6">
-					<div class="well">
-						<h3><span class="fa fa-user"></span> Local</h3>
-							<p>
-								<strong>id</strong>: <span id="userId"><%= user._id %></span><br>
-								<strong>email</strong>: <%= user.local.email %><br>
-								<strong>password (hash ni siya. super secret shit)</strong>: <%= user.local.password %> <br>
-								<strong>favor</strong>: <%= user.local.favor %> <br><br>
-								<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-							</p>
-					</div>
-				</div>		
-			   
-				<% if (user.local.favor === 'watcher') { %>
-					<% include partials/oversee.ejs %>
-				<% } %>
+			<header>
+				<img class="bonfire" src="../res/images/bonfire.png" />
+			</header>
+				
+			<div class="container">
+				<div class="row hidden">
+					<div class="col-sm-6">
+						<div class="well">
+							<h3><span class="fa fa-user"></span> Local</h3>
+								<p>
+									<strong>id</strong>: <span id="userId"><%= user._id %></span><br>
+									<strong>email</strong>: <%= user.local.email %><br>
+									<strong>password (hash ni siya. super secret shit)</strong>: <%= user.local.password %> <br>
+									<strong>favor</strong>: <%= user.local.favor %> <br><br>
+									<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+								</p>
+						</div>
+					</div>		
+				</div>
 			</div>
+			
+			<div id="divButtonChat" class="divButtonChat noSelect">
+				<div class="divButtonChat2"><span class="fa fa-comments-o"></span></div>
+			</div>
+			
+			<footer>
+				<span class="spanFooterText1">
+				<p><span class="spanFooterLogo"><span class="paragonBlack">MIG</span><span class="fa fa-globe spanFooterLogoGlobe"></span></span>
+				circa 2015. <br />
+				
+				All assets are properties of their respective owners.</p>
+				</span>
+				
+				<span class="spanFooterText2">
+				<p>Since 2015.</p>
+				</span>
+			</footer>		
 		</div>
 		
-		<div id="divButtonChat" class="divButtonChat noSelect">
-			<div class="divButtonChat2"><span class="fa fa-comments-o"></span></div>
-		</div>
-		
-		<footer>
-			<span class="spanFooterText1">
-			<p><span class="spanFooterLogo"><span class="paragonBlack">MIG</span><span class="fa fa-globe spanFooterLogoGlobe"></span></span>
-			circa 2015. <br />
-			
-			All assets are properties of their respective owners.</p>
-			</span>
-			
-			<span class="spanFooterText2">
-			<p>Since 2015.</p>
-			</span>
-		</footer>
+		<% if (user.local.favor === 'watcher') { %>
+			<% include partials/oversee.ejs %>
+		<% } %>
 		
 		<% include partials/chat.ejs %>
 		

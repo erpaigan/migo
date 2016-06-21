@@ -1,11 +1,13 @@
 
+//samot na ni suwati nig comments para di ka masaag! ayaw pag.tinapuwan
+
 var socket = io();
 var senderSpanClass = '';
 var messageDivClass = '';
 var chat = { message: '',
 		   senderId: $('#userId').html(),
 		   sender: $('#displayName').html(),
-		   receiverId: [] };
+		   receiverId: 'all' };
 var message = '';
 
 var chatBubbleBlink = { bubble1Id: '',
@@ -14,18 +16,35 @@ var chatBubbleBlink = { bubble1Id: '',
 
 var chatControl = { messagesId: [] };
 
+var chatControl2 = [];
+
 var chatBubbleClickCounter = 0;
 var activeContacts = [];
 var toggleChat = true;
 var toggleChatVis = false;
+var windowFocused = true;
 var ngChat;
-			
+
 var soundChatHit = new Audio('res/sounds/chatHit.mp3');
 soundChatHit.playbackRate = 1.5;
 soundChatHit.volume = 0.3;
 				
 var soundChatFlip = new Audio('res/sounds/chatFlip.mp3');
 soundChatFlip.playbackRate = 2;
+
+chatControl2.push({ _id: 'all', chatLog: [] });
+
+$(window).blur(function() {
+	windowFocused = false;
+});
+
+$(window).focus(function() {
+	if ($('#divChat').css('display') == 'block') {
+		document.title = 'Migo.beta';
+	}
+	
+	windowFocused = true;
+});
 				
 $('#divButtonChat').click(function() {	
 	toggleShow();
@@ -43,6 +62,14 @@ $('#btnCancelChatSettings').click(function() {
 	toggleSettings();
 });
 
+$('#spanShowChatList').click(function() {
+	if ($('#spanShowChatList').hasClass('heartBeat')) {
+		$('#spanShowChatList').removeClass('heartBeat');
+	}
+	
+	$('#inputChat').focus();
+});
+
 $('#spanButtonAddContact').click(function() {
 	//toggleAddContact();
 });
@@ -53,6 +80,14 @@ $('#btnCancelAddContact').click(function() {
 
 $('#spanDisplayName').click(function() {
 	$('#inputChat').focus();
+});
+
+$('.spanShowChatList').on('click', function() {
+	if ($('.ulChatList').css('visibility') == 'visible') {
+		$('.ulChatList').css('visibility', 'hidden');
+	} else {
+		$('.ulChatList').css('visibility', 'visible');
+	}
 });
 
 $('#messages').on("click", "div.divChatBubble", function(){ // ang gamit sa on kay makuha niya ang mga generated elements	
@@ -161,17 +196,13 @@ function connect() {
 /*function updateContactList() {
 	socket.emit('updateContactList', chat.senderId);
 }
-
 function updateContactsDisplayNameChanged() {
 	socket.emit('updateNewDisplayName', chat.senderId);
 }
-
 function removeFromClients(id, removedUserContacts) {
 	var userRemoved = {};
-
 	userRemoved._id = id;
 	userRemoved.contacts = removedUserContacts;
-
 	socket.emit('userRemoved', userRemoved);
 }*/
 
@@ -193,21 +224,16 @@ socket.on('setOnlineClients', function(response) {
 
 /*socket.on('updateContactList', function(response) {
 	activeContacts = response;
-
 	for (var i = 0; i < activeContacts.length; i++) {
 		var string = '#' + activeContacts[i];
-
 		$(string).css('color', '#ffffff');
 	}
-
 	ngChat.$apply(function() {
 		ngChat.sortContacts(activeContacts);
 	});
 });
-
 socket.on('updateContacts', function(response) { //kani sya, makadawat ka ug mga pulse gkan sa mga taw nga hinconnect or dc
 	var string = '#' + response.id;
-
 	if (response.type == 'connect') {
 		$(string).css('color', '#ffffff');
 	} else if (response.type == 'disconnect') {
@@ -217,20 +243,16 @@ socket.on('updateContacts', function(response) { //kani sya, makadawat ka ug mga
 	ngChat.$apply(function() {			
 		ngChat.updateContactsOnline(response);
 	});
-});*/
-
+});
 socket.on('chat', function(chat){
 	var newMessage;
 	var id = '#' + chatControl.messagesId[0];
 	
 	chatControl.messagesId.push(chat._id);
-
 	if (chatControl.messagesId.length > 50) {
 		$(id).parent().remove();
-
 		chatControl.messagesId.splice(0, 1);
 	}
-	
 	if (chat.senderId == $('#userId').html()) {
 		senderSpanClass = 'spanChatDisplayName1stPerson';
 		messageDivClass = 'divBubble divBubble1stPerson';
@@ -240,13 +262,106 @@ socket.on('chat', function(chat){
 	}
 	
 	newMessage = '<li><span class="' + senderSpanClass + ' select">' + chat.sender + '</span><div id="' + chat._id + '" class="' + messageDivClass + ' select divChatBubble">' + linkify(chat.message) + '</div>';
-
 	$(newMessage).hide().appendTo('#messages').fadeIn(400);
 	$('#divChatMessages').scrollTop($('#divChatMessages').prop("scrollHeight"));
-
+	}
 	if (chat.sender != $('#displayName').html()) {
 		playSound(soundChatHit);
 	}
+	if (!windowFocused || $('#divChat').css('display') == 'none') {
+		document.title = 'New Message';
+	}
+	
+	shakeItOff();
+	heartBeat();
+});*/
+
+socket.on('chat', function(res){
+	var newMessage;
+	var id = '#' + chatControl.messagesId[0];
+	var id2 = '#' + res.senderId;
+
+	chatControl.messagesId.push(res._id);
+
+	if (chatControl.messagesId.length > 50) {
+		$(id).parent().remove();
+
+		chatControl.messagesId.splice(0, 1);
+	}
+	
+	checkIfListed(res.receiverId, chatControl2, 0, false, function(response) {
+		if (!response) {
+			chatControl2.push({ _id: res.receiverId, chatLog: [] });
+		}
+		
+		checkIfListed(res.senderId, chatControl2, 0, false, function(response) {
+			if (!response) {
+				if (res.senderId != chat.senderId) {
+					chatControl2.push({ _id: res.senderId, chatLog: [] });
+				}
+			}
+			
+			for (var i = 0; i < chatControl2.length; i++) {
+				if (chatControl2[i]._id == res.senderId && res.receiverId != 'all') {
+					chatControl2[i].chatLog.push(res);
+				}
+				
+				if (chatControl2[i]._id == res.receiverId) {
+					chatControl2[i].chatLog.push(res);
+				}
+			}
+		});
+	});
+	
+	if (chat.senderId != res.senderId && res.receiverId != 'all') {
+		ngChat.$apply(function() {
+			ngChat.addToChatListOnMessage(res.senderId, res.sender);
+		});
+	}
+	
+	//if (res.senderId != chat.receiverId && res.senderId != chat.senderId)
+
+	if ((res.senderId == chat.receiverId && res.receiverId != 'all') || (res.senderId == chat.senderId && res.receiverId != 'all') || (chat.receiverId == 'all' && res.receiverId == 'all')) {
+		if (res.senderId == $('#userId').html()) {
+			senderSpanClass = 'spanChatDisplayName1stPerson';
+			messageDivClass = 'divBubble divBubble1stPerson';
+		} else {
+			senderSpanClass = 'spanChatDisplayName2ndPerson';
+			messageDivClass = 'divBubble divBubble2ndPerson';
+		}
+		
+		newMessage = '<li><span class="' + senderSpanClass + ' select">' + res.sender + '</span><div id="' + res._id + '" class="' + messageDivClass + ' select divChatBubble">' + linkify(res.message) + '</div>';
+
+		$(newMessage).hide().appendTo('#messages').fadeIn(400);
+		$('#divChatMessages').scrollTop($('#divChatMessages').prop("scrollHeight"));
+	} else {
+		if ($('.ulChatList').css('visibility') == 'hidden') {
+			if ($('#spanShowChatList').hasClass('heartBeat')) {
+				$('#spanShowChatList').removeClass('heartBeat');
+			}
+
+			$('#spanShowChatList').addClass('heartBeat');
+		}
+		
+		console.log($('.ulChatList').css('display'));
+		
+		if (res.receiverId == 'all') {
+			$('#all').children('.spanLiChatListEnvelope').css('display', 'inline');
+		} else {
+			$(id2).children('.spanLiChatListEnvelope').css('display', 'inline');
+		}
+	}
+
+	if (res.sender != $('#displayName').html()) {
+		playSound(soundChatHit);
+	}
+
+	if (!windowFocused || $('#divChat').css('display') == 'none') {
+		document.title = 'New Message';
+	}
+	
+	shakeItOff();
+	heartBeat();
 });
 
 socket.on('chatBubbleBlink', function(chatBlink){
@@ -276,7 +391,10 @@ function strip(text) {
 				
 function toggleShow() {
 	toggleChat = false;
-					
+	document.title = 'Migo.beta';
+	
+	$('.divButtonChat2').removeClass('heartBeat');
+
 	$(divButtonChat).fadeToggle(0, function() {
 		$('#divChat').slideToggle(100, function() {
 			toggleChat = true;
@@ -297,9 +415,9 @@ function toggleHide() {
 		$('#divButtonChat').fadeToggle(0, function() {
 			toggleChatVis = false;
 			toggleChat = true;
-							
+
 			$('#inputChat').focus();
-							
+
 			playSound(soundChatFlip);
 		});
 	});
@@ -342,7 +460,28 @@ function toggleAddContact() {
 			$('#divSettingsChat').css('z-index', 4);
 		}
 	}
-};
+}
+
+function shakeItOff() {	
+	if ($('#divButtonChat').hasClass('shakeItOff')) {
+		$('#divButtonChat').removeClass('shakeItOff');
+	}
+	
+	if ($('.divButtonChat2').hasClass('heartBeat') && !($('.divButtonChat').hasClass('shakeItOff'))) {
+		$('#divButtonChat').addClass('shakeItOff');
+		setTimeout(function() {
+			$('#divButtonChat').removeClass('shakeItOff');
+		}, 250);
+	}
+}
+
+function heartBeat() {
+	if (!($('#divChat').css('display') == 'block')) {
+		if (!($('.divButtonChat2').hasClass('heartBeat'))) {
+			$('.divButtonChat2').addClass('heartBeat');
+		}
+	}
+}
 
 function toggleSettings() {			
 	if ((!($('#divSettingsChat').is(':hidden'))) && (!($('#divAddContactChat').is(':hidden')))) {	
@@ -371,7 +510,7 @@ function toggleSettings() {
 			$('#divSettingsChat').css('z-index', 5);
 		}	
 	};
-};
+}
 
 function goBlinkies(i, id, color, callback) {	
 	if (i < 3) {
@@ -383,7 +522,6 @@ function goBlinkies(i, id, color, callback) {
 			
 			if (i == 2) {
 				$(id).css('background', 'linear-gradient(#ffffff, #eeeeee, #cccccc)');
-				$(id).after().css('background', 'linear-gradient(#ffffff, #eeeeee, #cccccc)');
 				
 				if (typeof callback === 'function') {
 					callback(id);
@@ -433,5 +571,62 @@ function setDisplayBubbleSelect(id, action) {
 		} else {
 			$(id).removeClass('divBubble2ndPersonClicked');
 		}
+	}
+}
+
+function populateChat(id) {
+	var newMessage;
+	
+	for (var i = 0; i < chatControl2.length; i++) {
+		if (chatControl2[i]._id == id) {
+			for (var x = 0; x < chatControl2[i].chatLog.length; x++) {
+				if (chatControl2[i].chatLog[x].senderId == $('#userId').html()) {
+					senderSpanClass = 'spanChatDisplayName1stPerson';
+					messageDivClass = 'divBubble divBubble1stPerson';
+				} else {
+					senderSpanClass = 'spanChatDisplayName2ndPerson';
+					messageDivClass = 'divBubble divBubble2ndPerson';
+				}
+	
+				newMessage = '<li><span class="' + senderSpanClass + ' select">' + chatControl2[i].chatLog[x].sender + '</span><div id="' + chatControl2[i].chatLog[x]._id + '" class="' + messageDivClass + ' select divChatBubble">' + linkify(chatControl2[i].chatLog[x].message) + '</div>';
+
+				$(newMessage).hide().appendTo('#messages').fadeIn(400);
+				$('#divChatMessages').scrollTop($('#divChatMessages').prop("scrollHeight"));
+			}
+
+			i = chatControl2.length;
+		}
+	}
+}
+
+//------------------------------------------------------------------------//
+
+function checkIndex(id, list, i, index, callback) {
+	if (i < list.length) {
+		if (list[i]._id == id) {
+			checkIndex(id, list, list.length, true, callback);
+		} else {
+			checkIndex(id, list, i + 1, index, callback);
+		}
+	} else {
+		runCallback(callback, index);
+	}
+}
+
+function checkIfListed(id, list, i, found, callback) {
+	if (i < list.length) {
+		if (list[i]._id == id) {
+			checkIfListed(id, list, list.length, true, callback);
+		} else {
+			checkIfListed(id, list, i + 1, found, callback);
+		}
+	} else {
+		runCallback(callback, found);
+	}
+}
+	
+function runCallback(callback, response) {
+	if (typeof callback === 'function') {
+		callback(response);
 	}
 }

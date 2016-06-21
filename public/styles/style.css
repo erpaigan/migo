@@ -8,6 +8,10 @@ body {
 	background-color: #171717;
 }
 
+.main {
+	transition: -webkit-filter 700ms;
+}
+
 .divNav {
 	padding: 0px;
 	padding-left: 5px;
@@ -129,10 +133,6 @@ nav {
 	box-shadow: 1px 1px 10px #171717;
 }
 
-.ulNavChild:hover {
-	visibility: visible
-}
-
 .ulNavChild:after {
 	content: '';
 	position: absolute;
@@ -156,6 +156,39 @@ nav {
 .liNavChild:hover {
 	color: #ffffff;
 	cursor: pointer;
+}
+
+.divOverseeOverlay {
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	text-align: center;
+	z-index: 8;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	vertical-align: middle;
+	background: transparent;
+}
+
+.blur {
+	filter: blur(1px) grayscale(80%);
+	-webkit-filter: blur(1px) grayscale(80%);
+}
+
+.divOversee {
+	background: #222222;
+	padding: 10px;
+	width: 850px;
+	height: 550px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -275px 0 0 -425px;
+	box-shadow: 2px 2px 6px 0px #171717;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 7px;
 }
 
 div {

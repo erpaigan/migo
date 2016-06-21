@@ -48,9 +48,9 @@ module.exports = function(app, passport, transporter) {
 	// ------------ // mao ni ang main nga page. ani mulagbas kung masakto ang
 	// HOME SECTION // gi.submit sa login form sa www.migo.com/login. kung mu.type
 	// ------------ // ang user ug www.migo.com/ unya wala malogin, maredirect sya sa
-				 // www.migo.com/login. mao nay gamit sa isLoggedIn
+				 // www.migo.com/login. mao nay isa sa gamit sa isLoggedIn
 	app.get('/', isLoggedIn, function(req, res) {
-		res.render('main.ejs', { title: 'Migo *Beta', 
+		res.render('main.ejs', { title: 'Migo.beta', 
 							user : req.user, //<--- i.pasa sa page ang info sa passport
 							messageInviteResult: '' });
 	});
@@ -72,7 +72,7 @@ module.exports = function(app, passport, transporter) {
 	app.post('/invite', isLoggedIn, function(req, res) {
 		var newCode;
 		
-		User.findOne({ 'local.email' :  req.body.email }, function(err, user) {
+		User.findOne({ 'local.email' :  req.body.email.toLowerCase() }, function(err, user) {
 			if (err)
 				return done(err);
 				
@@ -91,7 +91,7 @@ module.exports = function(app, passport, transporter) {
 							// set the user's local credentials
 							newCode = newInvitation.generateCode();
 							newInvitation.local.code     = newCode;
-							newInvitation.local.email    = req.body.email;
+							newInvitation.local.email    = req.body.email.toLowerCase();
 							newInvitation.local.favor    = req.body.favor.value; //<--- favor levels: modest(normal), watcher(admin)
 							
 							var mailOptions = {
@@ -138,7 +138,7 @@ module.exports = function(app, passport, transporter) {
 	
 	app.delete('/invite/:id', isLoggedIn, function(req, res) {
 		var id = req.params.id;
-		
+
 		Invitation.remove({ '_id': id }, function(err, id) {
 			if (err)
 				 return done(err);
