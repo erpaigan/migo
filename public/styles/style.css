@@ -283,13 +283,14 @@ header {
 footer {
 	text-align: center;
 	color: #dddddd;
+	background-color: #171717;
 	height: 200px;
 	width: 100%;
 	
-	background: -webkit-linear-gradient(#171717, #121212, #090909);
+	/*background: -webkit-linear-gradient(#171717, #121212, #090909);
 	background: -o-linear-gradient(#171717, #121212, #090909);
 	background: -moz-linear-gradient(#171717, #121212, #090909);
-	background: linear-gradient(#171717, #121212, #090909);
+	background: linear-gradient(#171717, #121212, #090909);*/
 }
 
 .spanFooterLogo {

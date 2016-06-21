@@ -2,7 +2,7 @@
 module.exports = { user: "migo.dispatch@gmail.com",
 			    clientId:"999145805335-7e54q2gf9egvjfagtvdg938cq8l91cpk.apps.googleusercontent.com",
 			    clientSecret: "ML-fDTSwALSdNtcmLELeHvNo",
-			    refreshToken: "1/wLjOZZxYzXfYn150bOGWr7PWwo2zSHK6otCskRBm1Lo" };
+			    refreshToken: "1/JtAeGslykumCVSOazmRvCkgGBHVTe2yF984b69o0De8" };
 			    
 /*
 {
