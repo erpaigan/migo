@@ -50,7 +50,7 @@ module.exports = function(app, passport, transporter) {
 	// ------------ // ang user ug www.migo.com/ unya wala malogin, maredirect sya sa
 				 // www.migo.com/login. mao nay isa sa gamit sa isLoggedIn
 	app.get('/', isLoggedIn, function(req, res) {
-		res.render('main.ejs', { title: 'Migo.beta', 
+		res.render('main.ejs', { title: 'Migo *alpha', 
 							user : req.user, //<--- i.pasa sa page ang info sa passport
 							messageInviteResult: '' });
 	});
