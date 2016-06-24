@@ -70,7 +70,7 @@
 			font-size: 22px;
 			cursor: pointer;
 			display: table;
-			box-shadow: 0px 0px 6px 0px #171717;
+			box-shadow: 0px 0px 2px 1px #101010;
 			
 			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
 			transition: color .1s, background .1s, box-shadow .1s, transform .05s
@@ -106,8 +106,8 @@
 			display: none;
 			border-radius: 4px;
 			padding: 5px;
-			box-shadow: 1px 1px 10px #171717;
-			//background: linear-gradient(#292929, #202020);
+			box-shadow: 0px 0px 2px 1px #101010
+			/*background: linear-gradient(#292929, #202020);*/
 		}
 
 		.spanButtonCloseChat {
@@ -674,7 +674,7 @@
 			left: 50%;
 			margin: -110px 0 0 -170px;
 			border-radius: 4px;
-			box-shadow: 0px 0px 6px 0px #171717
+			box-shadow: 0px 1px 2px 1px #101010
 		}
 		
 		.input-group {

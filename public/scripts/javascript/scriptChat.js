@@ -1,6 +1,7 @@
 
 //samot na ni suwati nig comments para di ka masaag! ayaw pag.tinapuwan
 
+var docTitle = 'Migo *alpha';
 var socket = io();
 var senderSpanClass = '';
 var messageDivClass = '';
@@ -40,7 +41,7 @@ $(window).blur(function() {
 
 $(window).focus(function() {
 	if ($('#divChat').css('display') == 'block') {
-		document.title = 'Migo.beta';
+		document.title = docTitle;
 	}
 	
 	windowFocused = true;
@@ -391,7 +392,7 @@ function strip(text) {
 				
 function toggleShow() {
 	toggleChat = false;
-	document.title = 'Migo.beta';
+	document.title = docTitle;
 	
 	$('.divButtonChat2').removeClass('heartBeat');
 
