@@ -106,7 +106,7 @@
 			display: none;
 			border-radius: 4px;
 			padding: 5px;
-			box-shadow: 0px 0px 2px 1px #101010
+			box-shadow: 0px 1px 2px 1px #101010;
 			/*background: linear-gradient(#292929, #202020);*/
 		}
 
