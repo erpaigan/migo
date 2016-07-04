@@ -6,7 +6,8 @@ app.controller('controllerOversee', ['$scope', '$http', function($scope, $http) 
 	                        { 'value': 'watcher', 'text': 'Watcher' } ];
 	
 	$scope.invitation = {};
-	$scope.invitation.favor = { 'value': 'modest', 'text': 'Modest' };	
+	$scope.invitation.favor = { 'value': 'modest', 'text': 'Modest' }; // initial value sa favor selector
+	$scope.invitation.advocate = window.chat.senderId;
 	
 	var refreshInvite = function() {
 		$http.get('/invite').success(function(response) {
@@ -22,7 +23,7 @@ app.controller('controllerOversee', ['$scope', '$http', function($scope, $http) 
 			
 			$scope.invitation.email = '';
 			
-			if(response.message != null) { console.log(response.message); }
+			if (response.message != null) { console.log(response.message); }
 
 			$scope.message = response.message;
 
@@ -197,7 +198,7 @@ app.controller('controllerChat', ['$scope', '$http', function($scope, $http) {
 	
 	$scope.refreshOnline = function(response) {
 		$scope.onlineList = response;
-
+		
 		$scope.processing = false;
 	}
 	
@@ -213,7 +214,7 @@ app.controller('controllerChat', ['$scope', '$http', function($scope, $http) {
 								return el._id !== response._id;
 							});
 							
-			$scope.onlineList = newOnlineList;		
+			$scope.onlineList = newOnlineList;	
 		} else if (response.type === 'displayNameChanged') {
 			if (response._id == $scope.user.id) {
 				$('#displayName').html(response.displayName);

@@ -6,6 +6,8 @@ var LocalStrategy   = require('passport-local').Strategy;
 // load up the user model
 var User            = require('./models/user');
 var Invitation      = require('./models/invitation');
+var Convo           = require('./models/convo');
+var Contact         = require('./models/contact');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -68,15 +70,57 @@ module.exports = function(passport) {
 					newUser.local.password = newUser.generateHash(password);
 					newUser.local.favor    = code.local.favor; //<--- favor levels: modest(normal), watcher(admin
 					newUser.local.displayName = 'Migo';
+					newUser.local.advocate = code.local.advocate;
 					
 					// save the user
-					newUser.save(function(err) {
+					newUser.save(function(err, newUser) {
 						if (err)
-						    throw err;
-						code.remove(); //<--- i.remove ang invitation code kay naa nay nakakuha
+							throw err;
+						
+						//auto add convo to advocate and descendant
+						
+						var advocate = new Contact({
+							contactId : newUser.local.advocate,
+							nick      : 'Advocate'
+						});
+						
+						var descendant = new Contact({
+							contactId : newUser._id,
+							nick	  : 'Descendant'
+						});
+						
+						advocate.save(function(err, advocate) {
+							if (err) throw err;
 							
-						return done(null, newUser);
+							descendant.save(function(err, descendant) {
+								if (err) throw err;
+								
+								var newConvo = new Convo({
+									header       : '',
+									participants : [advocate._id, descendant._id],
+									messages: []
+								});
+								
+								newConvo.save(function(err, newConvo) {
+								  if (err) return console.error(err);
+
+								  User.findByIdAndUpdate(newUser.local.advocate, { '$push': { 'local.convos': newConvo._id, 'local.descendants': newUser._id } }, function(err) {
+									if (err) throw err;
+									
+									User.findByIdAndUpdate(newUser._id, { '$push': { 'local.convos': newConvo._id } }, function(err, neoUser) {
+										if (err) throw err;
+										
+										code.remove(); //<--- i.remove ang invitation code kay naa nay nakakuha
+										
+										return done(null, neoUser);
+									  });
+								  });
+								  
+								});
+							});
+						});
 					});
+
 				 } else {					
 					return done(null, false, req.flash('joinMessage', 'wala mu.salir ang code or email')); 
 				 }

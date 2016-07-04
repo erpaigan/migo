@@ -3,11 +3,14 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
+var Schema = mongoose.Schema;
+
 // define the schema for our user model
 var invitationSchema = mongoose.Schema({
 
     local            : {
         code        : String,
+		advocate	: Schema.Types.ObjectId,
 	   email		: String,
 	   favor		: String//<--- puhon i.implement nato ni nga pwede na ang chosen muhimu ug code unya generate
     }					//	  ug hash unya i.validate ang invitation code gihatag sa user inig join.

@@ -5,6 +5,11 @@ var migoWindows = [];
 
 var toggled = false;
 
+var handlerPreventEvent = function(event) { 
+	event.preventDefault();
+	event.stopPropagation();
+}
+
 $(window).scroll(function (event) {
 	navBarVision();
 });
@@ -39,6 +44,12 @@ $(document).click(function(event) {
 	if ($(event.target).attr('id') == 'divOverseeOverlay') {
 		$('.divOverseeOverlay').css('visibility', 'hidden');
 		$('.main').removeClass('blur');
+		
+		$('body').unbind('scroll touchmove mousewheel', handlerPreventEvent);
+		
+		$('body').css({
+			'overflow': 'auto'
+		});
 	}
 	
 	if (($(event.target).attr('id') != 'spanShowChatList') && !($(event.target).hasClass('chatList'))) {
@@ -55,21 +66,37 @@ $('.spanButton').on('click', function() {
 });
 
 $('#spanButtonOversee').on('click', function() {
-	if ($('.divOverseeOverlay').css('visibility') == 'visible') {
-		$('.divOverseeOverlay').css('visibility', 'hidden');
-		$('.main').removeClass('blur');
-	} else {
+	if ($('.divOverseeOverlay').css('visibility') != 'visible') {		
+		$('body').bind('scroll touchmove mousewheel', handlerPreventEvent);
+		
+		$('body').css({
+			'overflow': 'hidden'
+		});
+		
 		$('.divOverseeOverlay').css('visibility', 'visible');
 		$('.main').addClass('blur');
+	}
+});
+
+$('#spanButtonCloseOversee').on('click', function() {
+	if ($('.divOverseeOverlay').css('visibility') == 'visible') {		
+		$('.divOverseeOverlay').css('visibility', 'hidden');
+		$('.main').removeClass('blur');
+		
+		$('body').unbind('scroll touchmove mousewheel', handlerPreventEvent);
+		
+		$('body').css({
+			'overflow': 'auto'
+		});
 	}
 });
 
 
 $(window).bind("load", function() {
 
-		$('.spanFooterLogo').fadeToggle();
 		$('.bonfire').fadeToggle(1000, function() {
 			$('.divLogo').fadeToggle();
+			$('.spanFooterLogo').fadeToggle();
 			
 			if ($(window).scrollTop() == 0) {
 				$('.divNav').removeClass('on off').addClass('off');
@@ -100,3 +127,4 @@ $(window).bind("load", function() {
 			}
 		});
 	});*/
+

@@ -1,10 +1,15 @@
 	<div id="divOverseeOverlay" class="divOverseeOverlay">
      <div id="divOversee" class="divOversee" ng-controller="controllerOversee">
+			<span id="spanButtonCloseOversee" class="spanButtonCloseChat floatRight">
+				<span class="fa fa-times"></span>
+			</span>
+			
 			<h3> <i class="fa fa-eye"></i> Oversee </h3>
-				<ul class="nav nav-tabs">
-				  <li class="active"><a data-toggle="tab" href="#overview">Overview</a></li>
-				  <li><a data-toggle="tab" href="#invites">Invites</a></li>
-				  <li><a data-toggle="tab" href="#users">Users</a></li>
+				<div class="divWindowContent">
+				<ul class="nav nav-pills">
+				  <li class="active"><a data-toggle="pill" href="#overview">Overview</a></li>
+				  <li class="paddingLeftMedium"><a data-toggle="tab" href="#invites">Invites</a></li>
+				  <li class="paddingLeftMedium"><a data-toggle="tab" href="#users">Users</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -52,7 +57,7 @@
 				  <div id="users" class="tab-pane fade left">
 				    <h4>Users</h4>
 				    
-				    <p>					
+				    <p>
 						<table class="table">
 							</thead>
 								<tr>
@@ -75,5 +80,7 @@
 				</div>
 					
 				<p ng-bind="message"></p>
+				
+				</div>
 	</div>
 	</div>

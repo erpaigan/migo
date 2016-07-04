@@ -18,13 +18,16 @@
 								<li class="liNav"><a class="aNav" href="#">Projects</a></li>
 								<li class="liNav"><a id="liClickTest" class="aNav" href="#">Crew</a></li>
 								<% if (user.local.favor === 'watcher') { %><li class="liNav"><span id="spanButtonOversee" class="fa fa-eye spanButton"></span></li><% } %>
-								<li class="liNav"><span id="spanButtonUser" class="fa fa-user spanButton"></span>
+								<li class="liNav zHigh"><span id="spanButtonUser" class="fa fa-user spanButton"></span>
 									<ul class="ulNavChild">
-										<li class="liNavChild">Badge</li>
-										<li class="liNavChild">More Stuff</li>
-										<li class="liNavChild">Stuff1</li>
-										<li class="liNavChild">Options</li>
-										<li id="liLogOut" class="liNavChild">Logout</li>
+										<li class="liNavChild"><span class="fa fa-newspaper-o fa-fw" aria-hidden="true"></span>&nbsp; Badge</li>
+										<li class="liNavChild"><span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span>&nbsp; Notifications</li> 
+										<li class="liNavChild hrLiNav"><hr class="hrNav"></li>
+										<li class="liNavChild"><span class="fa fa-wrench fa-fw" aria-hidden="true"></span>&nbsp; Preferences</li>
+										<li class="liNavChild"><span class="fa fa-map-signs fa-fw" aria-hidden="true"></span>&nbsp; Help</li>
+										<li class="liNavChild"><span class="fa fa-fire fa-fw" aria-hidden="true"></span>&nbsp; About</li>
+										<li class="liNavChild hrLiNav"><hr class="hrNav"></li>
+										<li id="liLogOut" class="liNavChild"><span class="fa fa-power-off fa-fw spanLogoutLogo" aria-hidden="true"></span>&nbsp; Log Out</li>
 									</ul>
 								</li>
 							</ul>
@@ -34,7 +37,7 @@
 			</div>
 			
 			<header>
-				<img class="bonfire" src="../res/images/bonfire.png" />
+				<img class="bonfire noSelect noDrag" src="../res/images/bonfire.png"/>
 			</header>
 				
 			<div class="container">
@@ -50,7 +53,7 @@
 									<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 								</p>
 						</div>
-					</div>		
+					</div>
 				</div>
 			</div>
 			

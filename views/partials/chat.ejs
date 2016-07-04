@@ -1,7 +1,7 @@
 
 <div id="divChat" class="divChat left noSelect" ng-controller="controllerChat">	
 	<div id="divChatBar" class="divChatBar">
-		<span id="spanButtonCloseChat" class="spanButtonCloseChat">
+		<span id="spanButtonCloseChat" class="spanButtonCloseChat floatLeft">
 			<span class="fa fa-chevron-down"></span>
 		</span>
 				
@@ -19,7 +19,7 @@
 		</span>
 	</div>
 			
-	<div class="divChatConsole">
+	<div class="textLeft">
 		<div class="divReceiver">
 			<span class="fa fa-comment-o" style="font-size: 17px;"></span><span id="receiverName" class="receiverName" ng-bind="receiver.displayName"></span>
 			<span id="spanShowChatList" class="fa fa-caret-down spanShowChatList"></span>
@@ -46,17 +46,19 @@
 					<th class="thOnline">Online</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr ng-repeat="online in onlineList | orderBy: 'displayName'">
-					<td ng-attr-id="{{ online._id }}" class="tdList {{ getClass(online._id, 'display') }}" ng-bind="online.displayName"></td>
-					<td class="tdContactOption {{ getClass(online._id, 'td') }}">
-						<span class="fa fa-envelope {{ getClass(online._id, 'option') }}" ng-click="setChatReceiver(online._id, online.displayName)"></span>
-					</td>
-					<td class="tdContactOption {{ getClass(online._id, 'td') }}">
-						<span class="fa fa-user-plus spanAddContact {{ getClass(online._id, 'option') }}"></span>
-					</td>
-				</tr>
-			</tbody>
+
+				<tbody>
+					<tr ng-repeat="online in onlineList | orderBy: 'displayName'">
+						<td>
+							<div class="convoCard paddingLeftSmall">
+								<span ng-attr-id="{{ online._id }}" class="tdList {{ getClass(online._id, 'display') }}" ng-bind="online.displayName"></span>
+								
+								<div class="textLeft paddingLeftSmall">(nickname)</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+
 		</table>
 	</div>
 			

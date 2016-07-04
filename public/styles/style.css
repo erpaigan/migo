@@ -92,16 +92,14 @@ body {
 	padding-left: 12px;
 	padding-right: 12px;
 	clear: both;
-}
-
-nav {
 	
+	-webkit-transform: translate3d(0, 0, 0);
 }
 
 .spanButton {
 	font-size: 20px;
 	cursor: pointer;
-			
+	
 	-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
 	transition: transform .07s
 }
@@ -120,16 +118,15 @@ nav {
 	list-style-type: none;
 	margin: 0px;
 	position: absolute;
-	top: 54px;
+	top: 51px;
 	text-align: left;
 	width: 150px;
-	right: 6px;
-	background: #333333;
+	right: 2px;
 	border-radius: 4px;
 	padding: 5px;
 	padding-top: 8px;
 	padding-bottom: 10px;
-	background: #383838; /*linear-gradient(#383838, #222222);*/
+	background: #222222; /*linear-gradient(#383838, #222222);*/
 	box-shadow: 0px 1px 2px 1px #101010;
 }
 
@@ -138,7 +135,7 @@ nav {
 	position: absolute;
 	border-style: solid;
 	border-width: 0 6px 7px;
-	border-color: #383838 transparent;
+	border-color: #222222 transparent;
 	display: block;
 	width: 0;
 	z-index: 1;
@@ -147,7 +144,7 @@ nav {
 }
 
 .liNavChild {
-	padding-left: 15px;
+	padding-left: 5px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	color: #dddddd;
@@ -155,7 +152,32 @@ nav {
 
 .liNavChild:hover {
 	color: #ffffff;
-	cursor: pointer;
+	cursor: pointer
+}
+
+.spanLogoutLogo {
+	font-size: 14px;
+	transition: color .1s, transform .05s
+}
+
+#liLogOut:hover > .spanLogoutLogo {
+	transform: scale(1.2);
+	color: #FF4C4C
+}
+
+.hrLiNav {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.hrLiNav:hover {
+	cursor: default;
+}
+
+.hrNav {
+	margin: 0px;
+	padding: 0px;
+	border-top: 1px solid #555555
 }
 
 .divOverseeOverlay {
@@ -176,19 +198,28 @@ nav {
 	-webkit-filter: blur(1px) grayscale(80%);
 }
 
+.divWindowContent {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .divOversee {
 	background: #222222;
-	padding: 10px;
-	width: 850px;
-	height: 550px;
+	padding: 5px;
+	width: calc(100% - 40px);
+	height: calc(100% - 40px);
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin: -275px 0 0 -425px;
+	top: 20px;
+	left: 20px;
+	/*margin: -275px 0 0 -425px;*/
 	box-shadow: 0px 1px 2px 1px #101010;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 7px;
+	border-radius: 4px;
+	min-height: 500px;
+	min-width: 800px;
+}
+
+.nav-pills > li > a {
+    color: dodgerblue;
 }
 
 div {
@@ -197,8 +228,7 @@ div {
 }
 
 h3 {
-	text-align: center;
-	padding-bottom: 30px
+	margin-top: 14px;
 }
 
 h4 {
@@ -336,12 +366,21 @@ span.spanFooterLogo:hover > .spanFooterLogoGlobe {
 	visibility: hidden;
 }
 
+.navSpanIconWidth {
+	width: 20px;
+}
+
 img.bonfire {
 	width: 100%;
 	min-width: 1300px;
 	height: 100%;
 	display: none;
 	box-shadow: 0px 2px 3px #000000
+}
+
+.noDrag {
+	user-drag: none; 
+	-webkit-user-drag: none;
 }
 
 .noSelect {
@@ -351,6 +390,18 @@ img.bonfire {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none
+}
+
+.paddingLeftMedium {
+	padding-left: 6px
+}
+
+.floatRight {
+	float: right;
+}
+
+.floatLeft {
+	float: left;
 }
 		
 .select {

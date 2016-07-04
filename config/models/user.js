@@ -14,8 +14,11 @@ var userSchema = mongoose.Schema({
         password     : String,
 	   favor		 : String,
 	   displayName  : String,
+	   advocate		: Schema.Types.ObjectId,
+	   descendants	: [Schema.Types.ObjectId],
+	   convos		: [Schema.Types.ObjectId],
 	   contacts     : [contactSchema],
-	   contactOf	 : [Schema.Types.ObjectId] //<-- Gi.add ko ani mga tawhana. inig add contact, i add nako sila sa ako contacts array. i add pd nako ako kaugalingon sa ila contact_of array so kani ra sila ako i.update inig online nako.
+	   contactOf	: [Schema.Types.ObjectId] //<-- Gi.add ko ani mga tawhana. inig add contact, i add nako sila sa ako contacts array. i add pd nako ako kaugalingon sa ila contact_of array so kani ra sila ako i.update inig online nako.
 									  //    Inig delete nako sa account nako. ako i check akong contact_of array unya i.delete
 									  //    nako tagsa2 akong kaugalingon sa ila contacts array.
     }

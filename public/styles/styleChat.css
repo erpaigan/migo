@@ -1,4 +1,9 @@
 
+//masolve sa z index ng mga flicker2 sa elements
+//ang element nga muflicker, dapat below iyang div index sa
+//element nga nagpaflicker
+//kung di matabang, gamitan ug -webkit-transform: translate3d(0, 0, 0);
+
 @keyframes shakeItOff {
 	0%, 50%, 100% { transform: translateX(3px); } 
 	25%, 75% { transform: translateX(-3px); } 
@@ -71,6 +76,7 @@
 			cursor: pointer;
 			display: table;
 			box-shadow: 0px 0px 2px 1px #101010;
+			z-index: 8;
 			
 			-webkit-transition: color .1s, background .1s; /* For Safari 3.1 to 6.0 */
 			transition: color .1s, background .1s, box-shadow .1s, transform .05s
@@ -101,17 +107,18 @@
 			right: 10px;
 			bottom: 10px;
 			position: fixed;
-			width: 500px;
-			height: 500px;
+			width: 850px;
+			height: calc(100% - 20px);
+			/*min-height: 500px; causes fadetoggle problems*/
 			display: none;
 			border-radius: 4px;
 			padding: 5px;
 			box-shadow: 0px 1px 2px 1px #101010;
+			z-index: 8
 			/*background: linear-gradient(#292929, #202020);*/
 		}
 
 		.spanButtonCloseChat {
-			float: left;
 			background: #444444;
 			width: 26px;
 			height: 26px;
@@ -206,7 +213,7 @@
 			cursor: default;
 			margin-top: 3px;
 			padding-top: 7px;
-			width: 300px;
+			width: 450px;
 			height: 33px;
 			font-weight: bold;
 			box-shadow: 1px 2px 2px #171717;
@@ -337,8 +344,8 @@
 		
 		.divChatMessages {
 			position: absolute;
-			width: 300px;
-			max-height: 400px;
+			width: 450px;
+			max-height: 520px;
 			bottom: 32px;
 			overflow: auto;
 			overflow-x: hidden;
@@ -367,7 +374,7 @@
 			cursor: pointer;
 			margin-top: 5px;
 			margin-bottom: 5px;
-			max-width: 150px;
+			max-width: 300px;
 			word-wrap: break-word; 
 			text-align: left;
 			color: #000000;
@@ -377,6 +384,7 @@
 			padding-right: 8px;
 			padding-bottom: 2px;
 			padding-top: 0px;
+			//background: #eeeeee;
 			background: linear-gradient(#ffffff, #eeeeee, #a0a0a0);
 			box-shadow: 0px 0px 4px 0px #202020;
 			-webkit-border-radius: 6px;
@@ -496,7 +504,7 @@
 			top: 4px;
 		}
 		
-		.divChatConsole {
+		.textLeft {
 			text-align: left
 		}
 		
@@ -559,23 +567,24 @@
 		}
 		
 		.divChatContacts {
-			width: 185px;
+			width: 235px;
 			height: 278px;
 			right: 0px;
 			border-collapse: collapse;
 			margin-top: 10px;
 			position: absolute;
-			margin-right: 5px
+			margin-right: 5px;
+			z-index: 1
 		}
 		
 		.tableChat {
-			width: 185px;
+			width: 235px;
 			border: none;
 			text-align: left
 		}
 		
 		.tableChat tr {
-			border: none
+			border: none;
 		}
 		
 		.tableChat thead th {
@@ -588,14 +597,6 @@
 		
 		.tableChat thead .thOnline {
 			padding-left: 65px;
-		}
-		
-		.tableChat tbody tr:hover .spanContactOption {
-			visibility: visible
-		}		
-				
-		.tableChat tbody tr:hover .tdOnline {
-			color: #ffffff
 		}
 		
 		.tdList {
@@ -699,3 +700,36 @@
 			display: none;
 			visibility: hidden;
 		}
+		
+		.convoCard {
+			//background: #191919;
+			background: #333333;
+			margin: 3px;
+			border-radius: 4px;
+			text-align: left;
+			cursor: pointer;
+			padding-bottom: 4px;
+			padding-top: 2px;
+			box-shadow: 0px 1px 2px 1px #101010;
+			z-index: 3;
+		}
+		
+		.convoCardHover, .convoCard:hover {
+			background: #444444;	
+		}
+		
+		.paddingLeftSmall {
+			padding-left: 2px;
+			color: #909090;
+		}		
+		
+		[draggable] {
+		  -moz-user-select: none;
+		  -khtml-user-select: none;
+		  -webkit-user-select: none;
+		  user-select: none;
+		  /* Required to make elements draggable in old WebKit */
+		  -khtml-user-drag: element;
+		  -webkit-user-drag: element;
+		}
+		

@@ -132,6 +132,92 @@ $('#messages').on("click", "div.divChatBubble", function(){ // ang gamit sa on k
 	}
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// DRAAAG AND DROP
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function setDraggable() {
+	$(".convoCard").draggable({
+    start: function(event,ui){
+     $(this).css("cursor", "-webkit-grabbing");
+	 $(this).css("z-index", "4");
+    },
+    stop: function(event,ui){
+     $(this).css("cursor", "pointer");
+	 $(this).css("z-index", "3");
+    }
+  }, { revert: true }, { revertDuration: 50 } );
+  
+  $( ".convoCard" ).droppable({
+      accept: ".convoCard",
+      //activeClass: "convoCardHover",
+      hoverClass: "convoCardHover",
+      drop: function( event, ui ) {
+        //alert("dropped");
+      }
+    });
+  
+  
+}
+	/*var convoCards = document.querySelectorAll(".convoCard");
+	[].forEach.call(convoCards, function(card) {
+	  card.addEventListener("dragstart", handleDragStart, false);
+		//card.addEventListener('dragenter', handleDragEnter, false);
+		card.addEventListener('dragover', handleDragOver, false);
+		card.addEventListener('dragleave', handleDragLeave, false);
+		card.addEventListener('drop', handleDrop, false);
+		card.addEventListener('dragend', handleDragEnd, false);
+	});
+	
+}
+var dragSrcEl;
+function handleDragStart(e) {
+		dragSrcEl = this;
+		
+		$(this).animate({
+			width: '90%'
+		}, 50);
+		
+	}
+	
+function handleDragOver(e) {
+  /*if (e.preventDefault) {
+    e.preventDefault(); // Necessary. Allows us to drop.
+  }*/
+
+  /*this.style.opacity = '0.4';
+
+  //return false;
+}
+
+function handleDragLeave(e) {
+  this.style.opacity = '1';  // this / e.target is previous target element.
+}
+
+
+function handleDrop(e) {
+  // this / e.target is current target element.
+
+  if (e.stopPropagation) {
+    e.stopPropagation(); // stops the browser from redirecting.
+  }
+
+  alert('new convo?');
+  // See the section on the DataTransfer object.
+
+  return false;
+}
+
+function handleDragEnd(e) {
+  // this/e.target is the source node.
+
+  $('.convoCard').animate({
+			width: '95%'
+		}, 50);
+}*/
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 $(document).click(function(event) {
 	var id1 = '#' + chatBubbleBlink.bubble1Id;
 	
@@ -215,12 +301,16 @@ socket.on('connected', function(response) {
 	ngChat.$apply(function() {
 		ngChat.refreshOnline(response);
 	});
+	
+	setDraggable();
 });
 
 socket.on('setOnlineClients', function(response) {
 	ngChat.$apply(function() {
 		ngChat.updateOnlineList(response);
 	});
+	
+	setDraggable();
 });
 
 /*socket.on('updateContactList', function(response) {
@@ -397,7 +487,7 @@ function toggleShow() {
 	$('.divButtonChat2').removeClass('heartBeat');
 
 	$(divButtonChat).fadeToggle(0, function() {
-		$('#divChat').slideToggle(100, function() {
+		$('#divChat').slideToggle(100, 'swing', function() {
 			toggleChat = true;
 			toggleChatVis = true;
 
@@ -412,7 +502,7 @@ function toggleShow() {
 function toggleHide() {
 	toggleChat = false;
 
-	$('#divChat').slideToggle(100, function() {
+	$('#divChat').slideToggle(100, 'swing', function() {
 		$('#divButtonChat').fadeToggle(0, function() {
 			toggleChatVis = false;
 			toggleChat = true;

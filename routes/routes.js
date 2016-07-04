@@ -91,6 +91,7 @@ module.exports = function(app, passport, transporter) {
 							// set the user's local credentials
 							newCode = newInvitation.generateCode();
 							newInvitation.local.code     = newCode;
+							newInvitation.local.advocate = req.body.advocate;
 							newInvitation.local.email    = req.body.email.toLowerCase();
 							newInvitation.local.favor    = req.body.favor.value; //<--- favor levels: modest(normal), watcher(admin)
 							
@@ -98,7 +99,7 @@ module.exports = function(app, passport, transporter) {
 								from: "'Migo Team'",
 								to: req.body.email,
 								subject: 'Join Migo',
-								text: 'Servus! You may use this invitation code: ' + newCode + ' along with this email address to join. Enjoy your stay.'
+								text: 'Servus! You may use this invitation code: ' + newCode + ' along with your email address to join. Enjoy your stay.'
 							};
 
 							transporter.sendMail(mailOptions, function(error, response) {
